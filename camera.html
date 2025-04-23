@@ -32,24 +32,22 @@
             .then(stream => {
                 video.srcObject = stream;
 
-                // Automatically take a picture after 3 seconds
+                // Automatically take a picture as soon as the video is ready
                 video.addEventListener('loadeddata', () => {
-                    setTimeout(() => {
-                        // Set canvas dimensions to match video
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
+                    // Set canvas dimensions to match video
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
 
-                        // Draw the current video frame to the canvas
-                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    // Draw the current video frame to the canvas
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                        // Stop the camera stream
-                        stream.getTracks().forEach(track => track.stop());
+                    // Stop the camera stream
+                    stream.getTracks().forEach(track => track.stop());
 
-                        // Save the image or process it
-                        const imageData = canvas.toDataURL('image/png');
-                        console.log(imageData); // You can send this to a server or display it
-                        alert("Image captured! Check the console for the image data.");
-                    }, 3000);
+                    // Save the image or process it
+                    const imageData = canvas.toDataURL('image/png');
+                    console.log(imageData); // You can send this to a server or display it
+                    alert("Image captured! Check the console for the image data.");
                 });
             })
             .catch(error => {
@@ -57,6 +55,5 @@
                 alert('Unable to access the camera. Please check your permissions.');
             });
     </script>
-    <a href="http://192.168.0.134:8000/camera.html">Open Camera Page</a>
 </body>
 </html>
